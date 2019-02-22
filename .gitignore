@@ -258,4 +258,6 @@ pip-selfcheck.json
 
 # Django
 migrations/
+media/
+static/
 *.sqlite3
