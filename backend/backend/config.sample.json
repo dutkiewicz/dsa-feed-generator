@@ -1,0 +1,4 @@
+{
+  "debug": false,
+  "hosts": ["example.com", "localhost"]
+}

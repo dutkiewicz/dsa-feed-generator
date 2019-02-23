@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'frontend', 'build')
+
+with open(os.path.join(BASE_DIR, 'backend', 'config.json')) as f:
+    CONFIG = json.load(f)
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,9 +28,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'frontend', 'build')
 SECRET_KEY = 'r5lcvoh_$r!@yl%c4x0vak82n7u6k4g_v_ppk$p=#0etws8z%h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(CONFIG['debug'])
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = CONFIG['hosts']
 
 
 # Application definition
