@@ -261,3 +261,4 @@ migrations/
 media/
 static/
 *.sqlite3
+*.lock.json

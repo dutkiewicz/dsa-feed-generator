@@ -2,7 +2,7 @@ import threading
 from api import models
 from api import serializers
 from api import tasks
-from rest_framework import viewsets, views
+from rest_framework import viewsets, views, permissions, authentication
 from django.views import View
 from django.shortcuts import get_object_or_404, HttpResponse
 
@@ -10,6 +10,8 @@ from django.shortcuts import get_object_or_404, HttpResponse
 # Create your views here.
 
 class FeedApiView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated, )
+
     queryset = models.Feed.objects.all()
     serializer_class = serializers.FeedSerializer
 
