@@ -10,7 +10,7 @@ COPY --from=build-stage /code/build /code/src/frontend/build
 COPY ./ /code
 RUN pip install -r requirements.txt
 WORKDIR /code/src
-RUN python manage.py makemigrations
+RUN python manage.py makemigrations api
 RUN python manage.py migrate
 RUN python manage.py collectstatic
-CMD gunicorn -w 3 -b 0.0.0.0:8000 backend.wsgi
+CMD gunicorn -w 3 -b 0.0.0.0:8000 --access-logfile - --error-logfile - --log-level debug backend.wsgi
