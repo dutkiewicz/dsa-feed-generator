@@ -21,10 +21,10 @@ def generate_feed_file(model_id: int, url: str) -> None:
 
     with open(file, 'w') as f:
         writer = csv.writer(f)
-        writer.writerow(['Page URL'])
+        writer.writerow(['Page URL', 'Custom Label'])
 
         for item in xml_feed:
-            writer.writerow(item['link'])
+            writer.writerow([item['link']])
 
 
     feed.file = file
