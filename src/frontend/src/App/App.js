@@ -70,7 +70,6 @@ class App extends Component {
         this.setState({ feed_id: response.data.id })
       })
       .then(() => {
-        console.log('requesting operation')
         const getFeedStatus = setInterval(() => axios.get('api/v1/feeds/' + this.state.feed_id)
           .then(response => {
             if (response.data.status === 'finished') {
@@ -78,7 +77,10 @@ class App extends Component {
               clearInterval(getFeedStatus)
             }
           })
-          .catch(error => this.setState({ errorMsg: error.message, processing: false }))
+          .catch(error => {
+            this.setState({ errorMsg: error.message, processing: false })
+            clearInterval(getFeedStatus)
+          })
           , 1000)
 
       })
@@ -93,9 +95,10 @@ class App extends Component {
             <form onSubmit={this.handleSubmit} method="POST">
               <TextField
                 fullWidth
-                label="Paste Google Merchant Center feed URL"
+                label="Type in Google Merchant Center XML feed URL"
                 name="url"
                 type="url"
+                value={this.state.url}
                 placeholder="http://domain.com/merchant-center-feed.xml"
                 onChange={this.handleChangeUrl}
                 required />

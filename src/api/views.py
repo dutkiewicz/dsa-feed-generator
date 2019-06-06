@@ -15,6 +15,7 @@ class FeedApiView(views.APIView):
         if request.data.get('url'):
             feed = models.Feed(url=request.data['url'])
             feed.save()
+
             threading.Thread(target=tasks.generate_feed_file, args=(feed.pk, feed.url)).start()
 
             return views.Response(status=status.HTTP_202_ACCEPTED,
@@ -41,6 +42,9 @@ class FeedApiView(views.APIView):
                                       "status": "finished",
                                       "location": "/api/v1/feeds/{}/file".format(feed.pk)
                                   })
+        elif feed.exception:
+            return views.Response(status=status.HTTP_400_BAD_REQUEST,
+                                  data={'error': feed.exception})
         else:
             return views.Response({"id": feed.pk, "status": "processing"})
 
