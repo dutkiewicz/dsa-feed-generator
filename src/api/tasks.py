@@ -9,7 +9,7 @@ from api.models import Feed
 
 def generate_feed_file(model_id: int, url: str) -> None:
     parser = FeedParser(url)
-    file = os.path.join(settings.MEDIA_ROOT, 'id_{}.csv'.format(model_id))
+    file = os.path.join(settings.MEDIA_ROOT, 'feed_id_{}.csv'.format(model_id))
 
     with open(file, 'w') as f:
         writer = csv.writer(f)
@@ -20,4 +20,5 @@ def generate_feed_file(model_id: int, url: str) -> None:
 
     feed = Feed.objects.get(pk=model_id)
     feed.file = file
+    feed.is_processed = True
     feed.save()
