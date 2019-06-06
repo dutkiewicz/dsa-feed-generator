@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: dsa-feed-generator
+    ports:
+      - 9001:8000
+    volumes:
+      - media:/code/media
+volumes:
+  media:
