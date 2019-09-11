@@ -7,5 +7,6 @@ services:
       - 9001:8000
     volumes:
       - media:/code/media
+    restart: always
 volumes:
   media:
